@@ -4,11 +4,11 @@ import datetime as dt
 # Create your models here.
 class ma_categoria(models.Model):
      categoria_id = models.AutoField(primary_key=True)
-     nomeclatura = models.CharField(default='')
+     prefijo = models.CharField(default='')
      descripcion = models.CharField(default = '')
 
      def __str__(self):
-          return self.nomeclatura + ' - ' + self.descripcion
+          return self.prefijo + ' - ' + self.descripcion
 
 class control_solicitud(models.Model):
      categoria_id = models.IntegerField(default=0)

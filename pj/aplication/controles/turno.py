@@ -5,7 +5,7 @@ import datetime as dt
 def generar(categoria_id:int):
     secuencia:str
     reinicio:int = 0
-    nom = get_nomeclatura(categoria_id)
+    nom = get_prefijo(categoria_id)
     sec =  get_secuencia(categoria_id)
     fecha = dt.date.today()
     fecha_actualizacion = get_fecha_actualizacion(categoria_id)
@@ -24,9 +24,9 @@ def generar(categoria_id:int):
         
     return secuencia
 
-def get_nomeclatura(id_registro:int):
+def get_prefijo(id_registro:int):
     query = cat.objects.get(categoria_id = id_registro)
-    result =  query.nomeclatura
+    result =  query.prefijo
     #print(type(query))
     return result
  
