@@ -4,21 +4,18 @@ import datetime as dt
 
 def generar(categoria_id:int):
     secuencia:str
-    reinicio:int = 0
+    reinicio:int = 1
     nom = get_prefijo(categoria_id)
     sec =  get_secuencia(categoria_id)
     fecha = dt.date.today()
     fecha_actualizacion = get_fecha_actualizacion(categoria_id)
     secuencia = nom + '-' + str(sec)
     
-    print('Fecha : ' + str(fecha)) 
-    print('Actualizacion :'+ str(fecha_actualizacion))
-    print('Categoria : '+ str(categoria_id))
-    print('Secuencia : '+ str(sec))
-
     if(fecha == fecha_actualizacion):
         update_secuencia(categoria_id,sec)
-    else:
+        update_fecha_secuencia(categoria_id)
+    elif(fecha != fecha_actualizacion):
+        secuencia = nom + '-' + str(reinicio)
         update_secuencia(categoria_id,reinicio)
         update_fecha_secuencia(categoria_id)
         
