@@ -77,9 +77,9 @@ WSGI_APPLICATION = 'pjturn.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'turno',
-        'USER': 'postgres',
-        'PASSWORD': '3Stocolmo!44',
+        'NAME': '',
+        'USER': '',
+        'PASSWORD': '',
         'HOST': 'localhost',
         'PORT': ''
     }
