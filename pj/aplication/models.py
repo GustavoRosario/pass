@@ -28,8 +28,3 @@ class registro_historico(models.Model):
      
      def __str__(self):
           return self.turno
-
-#python3 manage.py makemigrations
-#python3 manage.py migrate
-#class Meta:
-#db_table = 'things_to_read'
