@@ -14,9 +14,9 @@ class control_solicitud(models.Model):
      categoria_id = models.IntegerField(default=0)
      secuencia_actual = models.IntegerField(default=0)
      fecha_actualizacion = models.DateField(null=False)
-     
+
      def __str__(self):
-          return self.nombre
+          return self.secuencia_actual
 
 class registro_historico(models.Model):
      id = models.AutoField(primary_key=True)
