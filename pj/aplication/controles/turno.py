@@ -41,6 +41,7 @@ def get_fecha_actualizacion(_categoria_id:int):
 def update_fecha_secuencia(_categoria_id:int,):
      query = cso.objects.get(categoria_id = _categoria_id)
      query.fecha_actualizacion = dt.datetime.today() 
+     query.hora_actualizacion  = dt.datetime.now().strftime('%H:%M:%S')
      query.save()
     
 def update_secuencia(_categoria_id:int,nueva_secuencia:int):
