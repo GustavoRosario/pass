@@ -5,26 +5,25 @@ import datetime as dt
 def generar(categoria_id:int):
     secuencia:str
     reinicio:int = 1
-    nom = get_prefijo(categoria_id)
+    prefijo = get_prefijo(categoria_id)
     sec =  get_secuencia(categoria_id)
-    fecha = dt.date.today()
+    fecha_sys = dt.date.today()
     fecha_actualizacion = get_fecha_actualizacion(categoria_id)
-    secuencia = nom + '-' + str(sec)
+    secuencia = prefijo + '-' + str(sec)
     
-    if(fecha == fecha_actualizacion):
+    if(fecha_sys == fecha_actualizacion):
         update_secuencia(categoria_id,sec)
         update_fecha_secuencia(categoria_id)
-    elif(fecha != fecha_actualizacion):
-        secuencia = nom + '-' + str(reinicio)
+    elif(fecha_sys != fecha_actualizacion):
+        secuencia = prefijo + '-' + str(reinicio)
         update_secuencia(categoria_id,reinicio)
         update_fecha_secuencia(categoria_id)
-        
+
     return secuencia
 
 def get_prefijo(id_registro:int):
     query = cat.objects.get(categoria_id = id_registro)
     result =  query.prefijo
-    #print(type(query))
     return result
  
 def get_secuencia(_categoria_id:int):
