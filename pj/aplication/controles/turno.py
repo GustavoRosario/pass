@@ -21,8 +21,8 @@ def generar(categoria_id:int):
 
     return secuencia
 
-def get_prefijo(id_registro:int):
-    query = cat.objects.get(categoria_id = id_registro)
+def get_prefijo(_categoria_id:int):
+    query = cat.objects.get(categoria_id = _categoria_id)
     result =  query.prefijo
     return result
  
