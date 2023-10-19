@@ -4,8 +4,8 @@ import datetime as dt
 # Create your models here.
 class ma_categoria(models.Model):
      categoria_id = models.AutoField(primary_key=True)
-     prefijo = models.CharField(default='')
-     descripcion = models.CharField(default = '')
+     prefijo = models.CharField(max_length=10, blank=False)
+     descripcion = models.CharField(max_length=50, blank=True)
 
      def __str__(self):
           return self.prefijo + ' - ' + self.descripcion
@@ -15,7 +15,7 @@ class control_solicitud(models.Model):
      secuencia_actual = models.IntegerField(default=0)
      fecha_actualizacion = models.DateField(null=False)
      hora_actualizacion = models.TimeField(null=True)
-     
+
      def __str__(self):
           return self.secuencia_actual
 
@@ -23,7 +23,7 @@ class registro_historico(models.Model):
      id = models.AutoField(primary_key=True)
      fecha_registro = models.DateField()
      hora_registro = models.TimeField()
-     turno  = models.CharField()
+     turno  = models.CharField(max_length=10, blank=False)
      usuario_id = models.IntegerField(null=True)
      activo = models.BooleanField(default=True)
      
