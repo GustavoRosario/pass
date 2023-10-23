@@ -6,6 +6,3 @@ class historial():
       turno:str
       activo:bool
 
-#hora_actual = dt.datetime.now().strftime("%H: %M: %S:")
-#hora_actual = dt.datetime.now().strftime("%H: %M")
-#print(hora_actual)
