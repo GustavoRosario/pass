@@ -1,10 +1,11 @@
-from aplication.models import ma_categoria as cat,control_solicitud as cso
+from aplication.models import ma_categoria as cat,control_secuencia as cso
+from aplication.models import turno_generado
 import datetime as dt
 
 
 def generar(categoria_id:int):
     secuencia:str
-    reinicio:int = 1
+    SECUENCIA_INICIAL:int = 1
     prefijo = get_prefijo(categoria_id)
     sec =  get_secuencia(categoria_id)
     fecha_sys = dt.date.today()
@@ -15,11 +16,24 @@ def generar(categoria_id:int):
         update_secuencia(categoria_id,sec)
         update_fecha_secuencia(categoria_id)
     elif(fecha_sys != fecha_actualizacion):
-        secuencia = prefijo + '-' + str(reinicio)
-        update_secuencia(categoria_id,reinicio)
+        secuencia = prefijo + '-' + str(SECUENCIA_INICIAL)
+        update_secuencia(categoria_id,SECUENCIA_INICIAL)
         update_fecha_secuencia(categoria_id)
 
     return secuencia
+
+def registrar(_turno:turno_generado):
+    EN_COLA:int = 1
+    ESTACION_ID:int = 1
+    turno = turno_generado()
+    turno.fecha_registro = dt.date.today()
+    turno.estado_id = EN_COLA
+    turno.estacion_id = ESTACION_ID
+    turno.fecha_registro = dt.date.today()
+    turno.hora_registro = dt.datetime.now().strftime('%H:%M:%S')
+    turno.turno = _turno.turno
+    turno.activo = True
+    turno.save()
 
 def get_prefijo(_categoria_id:int):
     query = cat.objects.get(categoria_id = _categoria_id)
