@@ -2,71 +2,77 @@ from django.db import models
 import datetime as dt
 
 # Create your models here.
-class ma_categoria(models.Model):
-     categoria_id = models.AutoField(primary_key=True)
-     prefijo = models.CharField(max_length=10, blank=False)
-     descripcion = models.CharField(max_length=50, blank=True)
-
+class ma_category(models.Model):
+     category_id = models.AutoField(primary_key=True)
+     prefix = models.CharField(max_length=10, blank=False)
+     description = models.CharField(max_length=50, blank=True)
+ 
      def __str__(self):
           return self.prefijo + ' - ' + self.descripcion
      
      class Meta:
-        db_table = "trn_ma_categoria"
+        db_table = "trn_ma_category"
 
-class control_secuencia(models.Model):
-     categoria_id = models.IntegerField(default=0)
-     secuencia_actual = models.IntegerField(default=0)
-     fecha_actualizacion = models.DateField(null=False)
-     hora_actualizacion = models.TimeField(null=True)
+class sequence_control(models.Model):
+     category_id = models.IntegerField(default=0)
+     current_sequence = models.IntegerField(default=0)
+     date_update = models.DateField(null=False)
+     update_time = models.TimeField(null=True)
 
      def __str__(self):
-          return self.secuencia_actual
+          return self.current_sequence
      
      class Meta:
-        db_table = "trn_control_secuencia"
+        db_table = "trn_sequence_control"
 
-class registro_historico(models.Model):
+class historical_record(models.Model):
      id = models.AutoField(primary_key=True)
-     fecha_registro = models.DateField()
-     hora_registro = models.TimeField()
-     turno  = models.CharField(max_length=10, blank=False)
-     usuario_id = models.IntegerField(null=True)
-     activo = models.BooleanField(default=True)
+     registration_date = models.DateField()
+     registration_time = models.TimeField()
+     turn  = models.CharField(max_length=10, blank=False)
+     user_id = models.IntegerField(null=True)
+     active = models.BooleanField(default=True)
      
      def __str__(self):
-          return self.turno
+          return self.turn
      
      class Meta:
-        db_table = "trn_registro_historico"
+        db_table = "trn_historical_record"
 
-class ma_estado(models.Model):
-    estado_id = models.AutoField(primary_key=True)
-    descripcion_estado = models.CharField(max_length=30)
-    activo = models.BooleanField(default=True,null=True)
+class ma_state(models.Model):
+    state_id = models.AutoField(primary_key=True)
+    description_status = models.CharField(max_length=30)
+    active = models.BooleanField(default=True,null=True)
 
     def __str__(self):
-          return self.descripcion_estado
+          return self.description_status
      
     class Meta:
-        db_table = "trn_ma_estado"
+        db_table = "trn_ma_state"
 
-class turno_generado(models.Model):
-    id_generado = models.AutoField(primary_key=True)
-    turno = models.CharField(max_length=10, blank=False)
-    estado_id = models.IntegerField()
-    estacion_id = models.IntegerField()
-    fecha_registro = models.DateField()
-    hora_registro = models.TimeField()
-    activo = models.BooleanField(default=True,null=True)
+class generated_turn(models.Model):
+    id_generated = models.AutoField(primary_key=True)
+    turn = models.CharField(max_length=10, blank=False)
+    state_id = models.IntegerField()
+    station_id = models.IntegerField()
+    registration_date = models.DateField()
+    registration_time = models.TimeField()
+    active = models.BooleanField(default=True,null=True)
     
-    class Meta:
-       db_table = "trn_turno_generado"
-
-class ma_estacion(models.Model):
-    id_estacion = models.AutoField(primary_key=True)
-    descripcion = models.CharField(max_length=20)
-    activo = models.BooleanField(default=True,null=False)
+    def __str__(self):
+          return self.turn
 
     class Meta:
-       db_table = "trn_ma_estacion"
+       db_table = "trn_generated_turn"
 
+class ma_station(models.Model):
+    id_station = models.AutoField(primary_key=True)
+    description = models.CharField(max_length=20)
+    active = models.BooleanField(default=True,null=False)
+
+    def __str__(self):
+       return self.description
+
+    class Meta:
+       db_table = "trn_ma_station"
+     
