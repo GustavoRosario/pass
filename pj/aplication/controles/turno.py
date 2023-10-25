@@ -1,65 +1,64 @@
-from aplication.models import ma_categoria as cat,control_secuencia as cso
-from aplication.models import turno_generado
+from aplication.models import ma_category as cat,sequence_control as cso
+from aplication.models import generated_turn
 import datetime as dt
 
-
-def generar(categoria_id:int):
-    secuencia:str
-    SECUENCIA_INICIAL:int = 1
-    prefijo = get_prefijo(categoria_id)
-    sec =  get_secuencia(categoria_id)
-    fecha_sys = dt.date.today()
-    fecha_actualizacion = get_fecha_actualizacion(categoria_id)
-    secuencia = prefijo + '-' + str(sec)
+def generate(category_id:int):
+    sequence:str
+    INITIAL_SEQUENCE:int = 1
+    prefix = get_prefix(category_id)
+    sec =  get_sequence(category_id)
+    system_date = dt.date.today()
+    date_update = get_date_update(category_id)
+    sequence = prefix + '-' + str(sec)
     
-    if(fecha_sys == fecha_actualizacion):
-        update_secuencia(categoria_id,sec)
-        update_fecha_secuencia(categoria_id)
-    elif(fecha_sys != fecha_actualizacion):
-        secuencia = prefijo + '-' + str(SECUENCIA_INICIAL)
-        update_secuencia(categoria_id,SECUENCIA_INICIAL)
-        update_fecha_secuencia(categoria_id)
+    if(system_date == date_update):
+        update_sequence(category_id,sec)
+        update_sequence_date(category_id)
+    elif(system_date != date_update):
+        sequence = prefix + '-' + str(INITIAL_SEQUENCE)
+        update_sequence(category_id,INITIAL_SEQUENCE)
+        update_sequence_date(category_id)
 
-    return secuencia
+    return sequence
 
-def registrar(_turno:turno_generado):
-    EN_COLA:int = 1
-    ESTACION_ID:int = 1
-    turno = turno_generado()
-    turno.fecha_registro = dt.date.today()
-    turno.estado_id = EN_COLA
-    turno.estacion_id = ESTACION_ID
-    turno.fecha_registro = dt.date.today()
-    turno.hora_registro = dt.datetime.now().strftime('%H:%M:%S')
-    turno.turno = _turno.turno
-    turno.activo = True
-    turno.save()
+def register(_turn:generated_turn):
+    ON_HOLD:int = 1
+    STATION_ID:int = 1
+    turn = generated_turn()
+    turn.registration_date = dt.date.today()
+    turn.state_id = ON_HOLD
+    turn.station_id = STATION_ID
+    turn.registration_date = dt.date.today()
+    turn.registration_time = dt.datetime.now().strftime('%H:%M:%S')
+    turn.turn = _turn.turn
+    turn.active = True
+    turn.save()
 
-def get_prefijo(_categoria_id:int):
-    query = cat.objects.get(categoria_id = _categoria_id)
-    result =  query.prefijo
+def get_prefix(_category_id:int):
+    query = cat.objects.get(category_id = _category_id)
+    result =  query.prefix
     return result
  
-def get_secuencia(_categoria_id:int):
-        query = cso.objects.get(categoria_id = _categoria_id)
-        secuencia =  query.secuencia_actual
-        result = next_turn(secuencia)
+def get_sequence(_category_id:int):
+        qr = cso.objects.get(category_id = _category_id)
+        sequence =  qr.current_sequence
+        result = next_turn(sequence)
         return result
 
-def get_fecha_actualizacion(_categoria_id:int):
-        query = cso.objects.get(categoria_id = _categoria_id)
-        fecha =  query.fecha_actualizacion
-        return fecha
+def get_date_update(_category_id:int):
+        query = cso.objects.get(category_id = _category_id)
+        date =  query.date_update
+        return date
 
-def update_fecha_secuencia(_categoria_id:int,):
-     query = cso.objects.get(categoria_id = _categoria_id)
-     query.fecha_actualizacion = dt.datetime.today() 
-     query.hora_actualizacion  = dt.datetime.now().strftime('%H:%M:%S')
+def update_sequence_date(_category_id:int,):
+     query = cso.objects.get(category_id = _category_id)
+     query.date_update = dt.datetime.today() 
+     query.update_time  = dt.datetime.now().strftime('%H:%M:%S')
      query.save()
     
-def update_secuencia(_categoria_id:int,nueva_secuencia:int):
-     query = cso.objects.get(categoria_id = _categoria_id)
-     query.secuencia_actual = nueva_secuencia
+def update_sequence(_category_id:int,new_sequence:int):
+     query = cso.objects.get(category_id = _category_id)
+     query.current_sequence = new_sequence
      query.save()
 
 def next_turn(sec:int):
