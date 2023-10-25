@@ -1,8 +1,8 @@
 import datetime as dt
 
-class historial():
-      fecha_registro:dt.date
-      hora_registro:str
-      turno:str
-      activo:bool
+class dto_record():
+      registation_date:dt.date
+      registation_time:str
+      turn:str
+      active:bool
 

@@ -1,9 +1,9 @@
 import datetime as dt
 
-class turno_generado():
-      turno:str
-      estado_id: int
-      estacion_id: int
-      fecha_registro:dt.date
-      hora_registro:str
-      activo:bool
+class dto_generated_turn():
+      turn:str
+      state_id: int
+      stacion_id: int
+      registration_date:dt.date
+      registration_time:str
+      active:bool
