@@ -1,5 +1,4 @@
 from django.db import models
-import datetime as dt
 
 # Create your models here.
 class ma_category(models.Model):
@@ -75,4 +74,4 @@ class ma_station(models.Model):
 
     class Meta:
        db_table = "trn_ma_station"
-     
+
