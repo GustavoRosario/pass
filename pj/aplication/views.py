@@ -4,7 +4,7 @@ from aplication.controles import turn, record
 from aplication.dto.dto_record import dto_record
 from aplication.dto.dto_generated_turn import dto_generated_turn
 
-def turnos(request):
+def turn(request):
     
     _record = dto_record() #Objeto Historial
     _generated_turnn = dto_generated_turn()
@@ -16,4 +16,3 @@ def turnos(request):
     html:str = '<html><body> <p><h1> <center><br>' + _turno +'</br></center><h1></p> </body></html>'
     return HttpResponse(html)
     #return render(request,"Resultado:" + '', {})
-    
