@@ -1,5 +1,6 @@
 from aplication.models import ma_category as cat,sequence_control as cso
 from aplication.models import generated_turn
+from aplication.dto import dto_generated_turn
 import datetime as dt
 
 def generate(category_id:int):
@@ -18,10 +19,10 @@ def generate(category_id:int):
         sequence = prefix + '-' + str(INITIAL_SEQUENCE)
         update_sequence(category_id,INITIAL_SEQUENCE)
         update_sequence_date(category_id)
-
+        
     return sequence
 
-def register(_turn:generated_turn):
+def register(_turn:dto_generated_turn):
     ON_HOLD:int = 1
     STATION_ID:int = 1
     turn = generated_turn()
